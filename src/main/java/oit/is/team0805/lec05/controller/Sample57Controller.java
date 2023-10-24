@@ -41,4 +41,18 @@ public class Sample57Controller {
     model.addAttribute("fruits7", fruits7);
     return "sample57.html";
   }
+
+  @GetMapping("step8")
+  @Transactional
+  public String sample58(@RequestParam Integer id, ModelMap model) {
+    // 選択したフルーツを削除し，削除対象のフルーツをmodelに登録
+    final Fruit fruit8 = this.shop57.syncBuyFruits(id);
+    model.addAttribute("fruit8", fruit8);
+
+    // 残りのフルーツリストを取得してmodelに登録
+    final ArrayList<Fruit> fruits7 = shop57.syncShowFruitsList();
+    model.addAttribute("fruits7", fruits7);
+
+    return "sample57.html";
+  }
 }
