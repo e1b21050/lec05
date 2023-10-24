@@ -36,4 +36,20 @@ public class Sample51Controller {
     return "sample51.html";
   }
 
+  @GetMapping("step3")
+  @Transactional
+  public String sample53(@RequestParam Integer id, ModelMap model) {
+    // 削除対象のフルーツを取得
+    Fruit fruit3 = fMapper.selectById(id);
+    model.addAttribute("fruit3", fruit3);
+
+    // 削除
+    fMapper.deleteById(id);
+
+    // 削除後のフルーツリストを取得
+    ArrayList<Fruit> fruits2 = fMapper.selectAllFruit();
+    model.addAttribute("fruits2", fruits2);
+    return "sample51.html";
+  }
+
 }
