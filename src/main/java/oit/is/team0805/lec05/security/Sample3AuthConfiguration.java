@@ -27,6 +27,21 @@ public class Sample3AuthConfiguration {
    * @return
    */
   @Bean
+  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    http.formLogin(login -> login
+        .permitAll())
+        .logout(logout -> logout
+            .logoutUrl("/logout")
+            .logoutSuccessUrl("/")) // ログアウト後に / にリダイレクト
+        .authorizeHttpRequests(authz -> authz
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/sample5/**"))
+            .authenticated() // /sample4/以下は認証済みであること@
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/**"))
+            .permitAll());// 上記以外は全員アクセス可能
+    return http.build();
+  }
+
+  @Bean
   public InMemoryUserDetailsManager userDetailsService() {
 
     // ユーザ名，パスワード，ロールを指定してbuildする
