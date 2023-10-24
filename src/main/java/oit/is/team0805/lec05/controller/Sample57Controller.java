@@ -55,4 +55,11 @@ public class Sample57Controller {
 
     return "sample57.html";
   }
+
+  @GetMapping("step9")
+  public SseEmitter sample59() {
+    final SseEmitter sseEmitter = new SseEmitter();
+    this.shop57.asyncShowFruitsList(sseEmitter);
+    return sseEmitter;
+  }
 }
